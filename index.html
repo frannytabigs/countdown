@@ -137,7 +137,7 @@ var date = urlParams.get('date');
     document.title =  "Christmas Countdown";
     var countDownDate = new Date("December 25, " + xmas_year).getTime();
         if (ny){
-             var countDownDate = new Date("January 01, " + xmas_year+1).getTime();
+             var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
         }
 if (message&&date&&image1){
     dateCheck = new Date(date);
