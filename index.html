@@ -237,6 +237,55 @@ if(ny && !message){
         maxDate.setFullYear(maxDate.getFullYear() + 3);
 
         document.getElementById("date").max = maxDate.toISOString().slice(0, 10);
+
+        var msg = document.getElementById('message');
+        const livelyColors = [
+              "black",
+          "#FFB6C1", // Light Pink
+          "#FFD700", // Gold
+          "#90EE90", // Light Green
+          "#FF69B4", // Hot Pink
+          "#FF1493", // Deep Pink
+              "white",
+          "#FF8C00", // Dark Orange
+          "#7FFFD4", // Aquamarine
+          "#F08080", // Light Coral
+          "#FF00FF", // Magenta
+          "#00FFFF", // Cyan
+          "#00FF00", // Lime Green
+          "#FF0000", // Red
+          "#FFFF00", // Yellow
+          "#0000FF", // Blue
+          "#800000", // Maroon
+          "#008000", // Green
+          "#808000", // Olive
+          "#000080", // Navy
+              "black",
+          "#808080", // Gray
+          "#C0C0C0", // Silver
+          "#FFC0CB", // Pink
+          "#FFFAFA", // Snow
+          "#F0FFF0", // Honeydew
+          "#FFFFF0", // Ivory
+              "black",
+          "#F5F5F5", // Light Gray
+          "#FFF0F5", // Lavender Blush
+          "#FFFAF0", // Floral White
+          "#00FFFF", // Cyan
+          "#00FF00", // Lime Green
+          "#FF0000", // Red,
+            "white"
+        ];
+        indexcolor = 0;
+        
+        function msgcolors(){
+
+       
+msg.style.color = livelyColors[indexcolor];
+                indexcolor = (indexcolor + 1) % livelyColors.length;
+        }
+        setInterval(msgcolors,749);
+       
     </script>
 </body>
 </html>
