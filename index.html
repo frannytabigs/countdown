@@ -175,9 +175,8 @@ if (message&&date&&image1){
 
 if(date == (xmas_year+1) + "-01-01") {
     gif_xmas = gif_newyear;
-    document.body.style.backgroundImage = "url('"+gif_xmas[2] +"')";
+    document.body.style.backgroundImage = "url('"+gif_xmas[0] +"')";
     document.title =  "New Year " + (xmas_year+1) + " Countdown";
-    document.getElementById()
 }
 
         
@@ -207,6 +206,7 @@ if(ny && !message){
             document.body.style.backgroundImage = "url('"+gif_newyear[0] +"')";
         }
      document.title =  "New Year " + (xmas_year+1) + " Countdown";
+    document.getElementById('menu').innerHTML = "&#9776 " + "January 1, " + (xmas_year+1);
 }
 
         
