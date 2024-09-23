@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create a Countdown!</title>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width">
+      <meta content='Create a Countdown!' property='og:title' />
+        <meta content='Create a Countdown or Countdown with us at Christmas and New Year!' property='og:description'  />
+       <meta content='/countdown' property='og:url' />
+         <meta property='og:site_name' content='Countdown'>
+        <meta content='https://media.tenor.com/chNErfisaHIAAAAM/cant-decide-counting.gif' property='og:image' />
+        <meta content='#2f3136'  name='theme-color'/>
+<style>
+
+    html{
+        word-wrap: break-word;
+    }
+    body{
+
+         font-family: 'Open Sans';
+         background: url("https://blog.lootcrate.com/wp-content/uploads/2019/12/original.gif") no-repeat center center fixed; 
+         background-size: cover;
+    }
+    
+  #message {
+      text-align:center;
+      font-size: 4em;
+   }
+
+   #timer {
+      text-align:center;
+      font-size: 4em;
+       background-color: rgba(0, 0, 0, 0.3) ;
+         border-width: 0.0001px;
+          border-radius: 30px;
+       border-style: solid;
+       border-color: rgba(0, 0, 0, 0);
+       color: white;
+       padding:10px;
+   }
+    
+#menu{
+       font-size: 18px;
+        background-color: rgba(0, 0, 0, 0.3) ;
+        border-width: 1px;
+        border-radius: 30px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0);
+          color: white;
+          padding:10px;
+    }
+    
+#small_label{
+    font-size: 0.5em;
+}
+#menucontent{
+      position: absolute;
+      top: 0;
+      left: 0;
+     
+      height: 200%;
+      background-color: rgba(0, 0, 0,0.89);
+     display: none;
+      z-index: 1000; 
+    
+    font-size: 30px;
+    color:white;
+}
+   
+</style>
+</head>
+<body id="body">
+    
+    <div id="menucontent">
+      <a onclick="menu('none')">  &#9776</a>
+        <br>
+        <a onclick="copyclip()">Share this countdown</a> <br>
+        <br> <form>
+        Date <input type="date" id="date" name="date" min="2024-09-23" max="2043-12-31" required/>
+        <br>
+        Message <input name="message" required>
+        <br>
+        Background Image <a id="small_label">(url of image/gif will not display if invalid)</a> <br>
+            <input name="image1" placeholder="image1(required)" required><br>
+            <input placeholder="image2" name="image2"><br>
+            <input placeholder="image3" name="image3"><br>
+            <input placeholder="image4" name="image4"><br>
+            <input placeholder="image5" name="image5">
+        <br>
+        <button style="font-size: 20px">Create Countdown Now!</button> </form>
+        <br>
+        <br>
+       <a href="/countdown"> Christmas Countdown </a>
+        <br>
+        <a href="/countdown?newyear=true"> New Year Countdown </a>
+        <br><br>
+        About Us<br>
+        Made by Tabigs <br>Submitted as Project for Engr. Dads<br>
+        https://replit.com/@Bolantoy/frantest#countdown.html<br>
+        https://github.com/frannytabigs/countdown/
+    </div>
+    
+    <div id="menu" onclick="menu('block')">&#9776 December 25, 2024</div> <br>
+<div id="message">Merry Christmas!</div>
+<div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
+
+
+
+
+    <script>
+        
+function copyclip() {
+    const text = window.location.href;
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('value', text);
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    alert('Current URL copied to clipboard share the countdown now!');
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+var date = urlParams.get('date');
+    
+    const message = urlParams.get('message');
+    const image1 = urlParams.get('image1');
+    const image2 = urlParams.get('image2');
+    const image3 = urlParams.get('image3');
+    const image4 = urlParams.get('image4');
+    const image5 = urlParams.get('image5');
+    const ny = urlParams.get('newyear');
+    const xmas_year = new Date().getFullYear();
+    document.title =  "Christmas Countdown";
+    var countDownDate = new Date("December 25, " + xmas_year).getTime();
+        
+if (message&&date&&image1){
+    dateCheck = new Date(date);
+    dateCheck = dateCheck.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    var countDownDate = new Date(dateCheck).getTime();
+    document.getElementById('message').innerHTML = message;
+    document.getElementById('menu').innerHTML = "&#9776 " + dateCheck;
+    document.title = dateCheck + " Countdown"
+        document.body.style.backgroundImage = "url('"+image1+"')";
+}
+        
+    var x = setInterval(function() {
+
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+        
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+      document.getElementById("timer").innerHTML = days + "<a id='small_label'>d</a> " + hours + "<a id='small_label'>h</a> " + 
+      minutes + "<a id='small_label'>m</a> " + seconds + "<a id='small_label'>s</a> ";
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerHTML = "Countdown Done! Create another!";
+      }
+    }, 1000);
+
+        var gif_xmas = ["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"];
+        
+      var gif_newyear = ["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"];
+
+if(date == (xmas_year+1) + "-01-01") {
+    gif_xmas = gif_newyear;
+    document.body.style.backgroundImage = "url('"+gif_xmas[2] +"')";
+    document.title =  "New Year " + (xmas_year+1) + " Countdown";
+    document.getElementById()
+}
+
+        
+gifs = [];
+if(image1){
+gifs.push(image1);
+}
+if(image2){
+    gifs.push(image2);
+}
+if(image3){
+    gifs.push(image3);
+}
+if(image4){
+    gifs.push(image4);
+}
+if(image5){
+    gifs.push(image5);
+}
+if(gifs.length != 0){
+    gif_xmas = gifs;
+}
+if(ny && !message){
+                     document.getElementById('message').innerHTML = "Happy New Year "+ (xmas_year+1)+"!";
+        if(gifs.length == 0){
+            gif_xmas = gif_newyear;
+            document.body.style.backgroundImage = "url('"+gif_newyear[0] +"')";
+        }
+     document.title =  "New Year " + (xmas_year+1) + " Countdown";
+}
+
+        
+        var index = 0;
+
+        function updateImage() {
+
+            document.body.style.backgroundImage = "url('"+gif_xmas[index] +"')";
+
+        index = (index + 1) % gif_xmas.length;
+
+        }
+
+        setInterval(updateImage, 6500);
+        
+        function menu(display){
+            document.getElementById("menucontent").style.display = display;
+        }
+
+        const today = new Date();
+     
+        today.setDate(today.getDate() + 1);
+        document.getElementById("date").min = today.toISOString().slice(0, 10);
+         document.getElementById("date").value = today.toISOString().slice(0, 10);
+        
+        const maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() + 3);
+
+        document.getElementById("date").max = maxDate.toISOString().slice(0, 10);
+    </script>
+</body>
+</html>
