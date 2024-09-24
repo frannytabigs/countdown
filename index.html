@@ -230,16 +230,31 @@ if(ny && !message){
             document.getElementById("menucontent").style.display = display;
         }
 
-        const today = new Date();
-     
-        today.setDate(today.getDate() + 1);
-        document.getElementById("date").min = today.toISOString().slice(0, 10);
-         document.getElementById("date").value = today.toISOString().slice(0, 10);
-        
-        const maxDate = new Date();
-        maxDate.setFullYear(maxDate.getFullYear() + 3);
+          function formatDate(d) {
+            var d = new Date(d);
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
 
-        document.getElementById("date").max = maxDate.toISOString().slice(0, 10);
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        
+        const today = new Date();
+        var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+        var toms = formatDate(toms);
+        
+         document.getElementById("date").value = toms;
+        document.getElementById("date").min = toms;
+        
+        var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+        var maxdate = formatDate(maxdate);
+        document.getElementById("date").max = maxdate;
+        
 
         var msg = document.getElementById('message');
         const livelyColors = [
