@@ -1,131 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create a Countdown!</title>
-     <link rel='icon' href='https://cdn-icons-png.flaticon.com/512/2784/2784459.png' type='image/x-icon'>
+    <title>Create a Countdown!</title>
+    <link rel='icon' href='https://cdn-icons-png.flaticon.com/512/2784/2784459.png' type='image/x-icon'>
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width">
-      <meta content='Create a Countdown!' property='og:title' />
-        <meta content='Create a Countdown or Countdown with us at Christmas and New Year!' property='og:description'  />
-       <meta content='/countdown' property='og:url' />
-         <meta property='og:site_name' content='Countdown'>
-        <meta content='https://media.tenor.com/chNErfisaHIAAAAM/cant-decide-counting.gif' property='og:image' />
-        <meta content='#2f3136'  name='theme-color'/>
-<style>
+    <meta name="viewport" content="width=device-width">
+    <meta content='Create a Countdown!' property='og:title' />
+    <meta content='Create a Countdown or Countdown with us at Christmas and New Year!' property='og:description'  />
+    <meta content='/countdown' property='og:url' />
+    <meta property='og:site_name' content='Countdown'>
+    <meta content='https://media.tenor.com/chNErfisaHIAAAAM/cant-decide-counting.gif' property='og:image' />
+    <meta content='#2f3136'  name='theme-color'/>
+    
+    <style>
 
-    html{
-        word-wrap: break-word;
-    }
-    body{
-
-         font-family: 'Open Sans';
-         background: url("https://blog.lootcrate.com/wp-content/uploads/2019/12/original.gif") no-repeat center center fixed; 
-         background-size: cover;
-    }
+        html{
+            word-wrap: break-word;
+        }
+        
+        body{
+            font-family: 'Open Sans';
+            background: url("https://blog.lootcrate.com/wp-content/uploads/2019/12/original.gif") no-repeat center center fixed; 
+            background-size: cover;
+        }
     
-  #message {
-      text-align:center;
-      font-size: 4em;
-   }
-
-   #timer {
-      text-align:center;
-      font-size: 4em;
-       background-color: rgba(0, 0, 0, 0.3) ;
-         border-width: 0.0001px;
-          border-radius: 30px;
-       border-style: solid;
-       border-color: rgba(0, 0, 0, 0);
-       color: white;
-       padding:10px;
-   }
+        #message {
+            text-align:center;
+            font-size: 4em;
+        }
+        
+        #timer {
+           text-align: center;
+           font-size: 4em;
+           background-color: rgba(0, 0, 0, 0.3);
+           border-radius: 30px;
+           padding: 10px;
+           color: white;
+           margin: 20px auto;
+           width: fit-content;
+           cursor: progress;
+        }
     
-#menu{
-       font-size: 18px;
-        background-color: rgba(0, 0, 0, 0.3) ;
-        border-width: 1px;
-        border-radius: 30px;
-        border-style: solid;
-        border-color: rgba(0, 0, 0, 0);
-          color: white;
-          padding:10px;
-    }
+        #menu{
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            padding: 10px;
+            width: fit-content;
+            margin: 20px;
+            cursor: pointer;
+            color: white;
+        }
     
-#small_label{
-    font-size: 0.5em;
-}
-#menucontent{
-      position: absolute;
-      top: 0;
-      left: 0;
-     
-      height: 550%;
-      background-color: rgba(0, 0, 0,0.89);
-     display: none;
-      z-index: 1000; 
+        #small_label{
+            font-size: 0.5em;
+        }
+        
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            color:white;
+        }
     
-    font-size: 42px;
-    color:white;
-}
-   
-</style>
+        a:hover {
+            text-decoration: underline;
+        }
+    
+        #menucontent{
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 30px;
+            padding: 10px;
+            width: fit-content;
+            margin: 20px;
+            color: white;
+            z-index: 1000;
+            position: absolute;
+            top: 0;
+            display:none;
+        }
+        form input, form button,button,button a {
+            margin-top: 10px;
+            font-size: 19px;
+            padding: 10px;
+            border-radius: 8px;
+            color: black;
+        }
+    </style>
 </head>
 <body id="body">
-    
     <div id="menucontent">
-      <a onclick="menu('none')">  &#9776</a>
+        <a onclick="menu('none')">X CLOSE</a>
         <br>
-        <a onclick="copyclip()">Share this countdown</a> <br>
-        <br> <form>
-        Date <input type="date" id="date" name="date" min="2024-09-23" max="2043-12-31" required/>
+        <button onclick="copyclip()"> Share this Countdown</button><br>  
+        <button onclick="window.location.assign('/countdown')">Christmas Countdown</button>
         <br>
-        Message <input name="message" required>
+        <button onclick="window.location.assign('/countdown?newyear=true')">New Year Countdown</button> <br>
+        <br> 
         <br>
-        Background Image <a id="small_label">(url of image/gif will not display if invalid)</a> <br>
-            <input name="image1" placeholder="image1(required)" required><br>
-            <input placeholder="image2" name="image2"><br>
-            <input placeholder="image3" name="image3"><br>
-            <input placeholder="image4" name="image4"><br>
-            <input placeholder="image5" name="image5">
+        <form>
+            <a id="small_label">Date to countdown</a><br>
+            <input type="date" id="date" name="date" min="2024-09-23" max="2043-12-31" value="2024-09-23" required/>
+            <br>
+            <a id="small_label">Message</a><br>
+            <input name="message" placeholder="Happy BD Sample!" required>
+            <br>
+            <a id="small_label">Valid URL of Background Image/GIF</a><br>
+            <input name="image1" type="url" placeholder="1" required><br>
+            <input placeholder="2" type="url" name="image2"><br>
+            <input placeholder="3" type="url" name="image3"><br>
+            <input placeholder="4" type="url" name="image4"><br>
+            <input placeholder="5" type="url" name="image5">
+            <br>
+            <button style="font-size: 20px">Create Countdown Now!</button> 
+        </form>
         <br>
-        <button style="font-size: 20px">Create Countdown Now!</button> </form>
+        Made by Tabigs 
         <br>
+        Submitted as Project for Engr. Dads
         <br>
-       <a href="/countdown"> Christmas Countdown </a>
+        https://replit.com/@Bolantoy/frantest#countdown.html
         <br>
-        <a href="/countdown?newyear=true"> New Year Countdown </a>
-        <br><br>
-        About Us<br>
-        Made by Tabigs <br>Submitted as Project for Engr. Dads <br>
-        https://replit.com/@Bolantoy/frantest#countdown.html <br>
-        https://github.com/frannytabigs/countdown/ <br>
-         fb.com/franny.bolantoy
+        https://github.com/frannytabigs/countdown
+        <br>
+        facebook.com/franny.bolantoy
     </div>
     
     <div id="menu" onclick="menu('block')">&#9776 December 25, 2024</div> <br>
-<div id="message">Merry Christmas!</div>
-<div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
-
-
-
+    <div id="message">Merry Christmas!</div>
+    <div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
 
     <script>
         
-function copyclip() {
-    const text = window.location.href;
-    const input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.setAttribute('value', text);
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-    alert('Current URL copied to clipboard share the countdown now!');
-}
+    function copyclip() {
+        const text = window.location.href;
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('value', text);
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        alert('Countdown copied to clipboard share now!');
+    }
 
-const urlParams = new URLSearchParams(window.location.search);
-var date = urlParams.get('date');
-    
+    const urlParams = new URLSearchParams(window.location.search);
+    var date = urlParams.get('date');
     const message = urlParams.get('message');
     const image1 = urlParams.get('image1');
     const image2 = urlParams.get('image2');
@@ -134,26 +154,31 @@ var date = urlParams.get('date');
     const image5 = urlParams.get('image5');
     const ny = urlParams.get('newyear');
     const xmas_year = new Date().getFullYear();
+        
     document.title =  "Christmas Countdown";
     var countDownDate = new Date("December 25, " + xmas_year).getTime();
-        if (ny){
-             var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
-        }
-if (message&&date&&image1){
-    dateCheck = new Date(date);
-    dateCheck = dateCheck.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    var countDownDate = new Date(dateCheck).getTime();
-    document.getElementById('message').innerHTML = message;
-    document.getElementById('menu').innerHTML = "&#9776 " + dateCheck;
-    document.title = dateCheck + " Countdown"
+    var now = new Date().getTime();
+    var xmasDone = countDownDate - now;
+    if (xmasDone < 0) {
+        var countDownDate = new Date("December 25, " + (xmas_year+1)).getTime();
+    }
+    if (ny){
+        var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
+    }
+        
+    if (message&&date&&image1){
+        dateCheck = new Date(date);
+        dateCheck = dateCheck.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        var countDownDate = new Date(dateCheck).getTime();
+        document.getElementById('message').innerHTML = message;
+        document.getElementById('menu').innerHTML = "&#9776 " + dateCheck;
+        document.title = dateCheck + " Countdown"
         document.body.style.backgroundImage = "url('"+image1+"')";
-}
+    }
         
     var x = setInterval(function() {
-
-        var now = new Date().getTime();
-
-        var distance = countDownDate - now;
+        var currentnow = new Date().getTime();
+        var distance = countDownDate - currentnow;
         
         var _second = 1000;
         var _minute = _second * 60;
@@ -163,146 +188,143 @@ if (message&&date&&image1){
         var hours = Math.floor((distance % _day) / _hour);
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second);
-
-      document.getElementById("timer").innerHTML = days + "<a id='small_label'>d</a> " + hours + "<a id='small_label'>h</a> " + 
-      minutes + "<a id='small_label'>m</a> " + seconds + "<a id='small_label'>s</a> ";
-
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "Countdown Done! Create another!";
-      }
-    }, 1000);
-
-        var gif_xmas = ["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"];
         
-      var gif_newyear = ["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"];
+        document.getElementById("timer").innerHTML = days + "<a id='small_label'>d</a> " + hours + "<a id='small_label'>h</a> " + minutes + "<a id='small_label'>m</a> " + seconds + "<a id='small_label'>s</a> ";
 
-if(date == (xmas_year+1) + "-01-01") {
-    gif_xmas = gif_newyear;
-    document.body.style.backgroundImage = "url('"+gif_xmas[0] +"')";
-    document.title =  "New Year " + (xmas_year+1) + " Countdown";
-}
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Countdown Done! Create another!";
+            }
+        }, 1000);
+
+    var gif_xmas = ["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"];
+        
+    var gif_newyear = ["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"];
+
+    if(date == (xmas_year+1) + "-01-01") {
+        gif_xmas = gif_newyear;
+        document.body.style.backgroundImage = "url('"+gif_xmas[0] +"')";
+        document.title =  "New Year " + (xmas_year+1) + " Countdown";
+    }
 
         
-gifs = [];
-if(image1){
-gifs.push(image1);
-}
-if(image2){
-    gifs.push(image2);
-}
-if(image3){
-    gifs.push(image3);
-}
-if(image4){
-    gifs.push(image4);
-}
-if(image5){
-    gifs.push(image5);
-}
-if(gifs.length != 0){
-    gif_xmas = gifs;
-}
-if(ny && !message){
-                     document.getElementById('message').innerHTML = "Happy New Year "+ (xmas_year+1)+"!";
+    gifs = [];
+    if(image1){
+    gifs.push(image1);
+    }
+    if(image2){
+        gifs.push(image2);
+    }
+    if(image3){
+        gifs.push(image3);
+    }
+    if(image4){
+        gifs.push(image4);
+    }
+    if(image5){
+        gifs.push(image5);
+    }
+    if(gifs.length != 0){
+        gif_xmas = gifs;
+    }
+        
+    if(ny && !message){
+        document.getElementById('message').innerHTML = "Happy New Year "+ (xmas_year+1)+"!";
+        
         if(gifs.length == 0){
             gif_xmas = gif_newyear;
             document.body.style.backgroundImage = "url('"+gif_newyear[0] +"')";
         }
-     document.title =  "New Year " + (xmas_year+1) + " Countdown";
-    document.getElementById('menu').innerHTML = "&#9776 " + "January 1, " + (xmas_year+1);
-}
+        
+         document.title =  "New Year " + (xmas_year+1) + " Countdown";
+         document.getElementById('menu').innerHTML = "&#9776 " + "January 1, " + (xmas_year+1);
+    }
 
         
-        var index = 0;
+    var index = 0;
 
-        function updateImage() {
+    function updateImage() {
 
-            document.body.style.backgroundImage = "url('"+gif_xmas[index] +"')";
-
+        document.body.style.backgroundImage = "url('"+gif_xmas[index] +"')";
         index = (index + 1) % gif_xmas.length;
+    }
 
-        }
-
-        setInterval(updateImage, 6500);
+    setInterval(updateImage, 6500);
         
-        function menu(display){
-            document.getElementById("menucontent").style.display = display;
-        }
-
-          function formatDate(d) {
-            var d = new Date(d);
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2) 
-                month = '0' + month;
-            if (day.length < 2) 
-                day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
+    function menu(display){
+        document.getElementById("menucontent").style.display = display;
+    }
         
-        const today = new Date();
-        var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
-        var toms = formatDate(toms);
-        
-         document.getElementById("date").value = toms;
-        document.getElementById("date").min = toms;
-        
-        var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
-        var maxdate = formatDate(maxdate);
-        document.getElementById("date").max = maxdate;
-        
+    function formatDate(d) {
+        var d = new Date(d);
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
-        var msg = document.getElementById('message');
-        const livelyColors = [
-              "black",
+        if (month.length < 2) {month = '0' + month;}
+        if (day.length < 2) {day = '0' + day;}
+
+        return [year, month, day].join('-');
+    }
+        
+    const today = new Date();
+    var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+    var toms = formatDate(toms);
+        
+    document.getElementById("date").value = toms;
+    document.getElementById("date").min = toms;
+        
+    var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+    var maxdate = formatDate(maxdate);
+    document.getElementById("date").max = maxdate;
+        
+    var msg = document.getElementById('message');
+
+    const livelyColors = [
+        "black",
           "#FFB6C1", // Light Pink
           "#FFD700", // Gold
           "#90EE90", // Light Green
           "#FF69B4", // Hot Pink
           "#FF1493", // Deep Pink
-              "white",
           "#FF8C00", // Dark Orange
           "#7FFFD4", // Aquamarine
           "#F08080", // Light Coral
+        "white",
           "#FF00FF", // Magenta
           "#00FFFF", // Cyan
           "#00FF00", // Lime Green
           "#FF0000", // Red
           "#FFFF00", // Yellow
           "#0000FF", // Blue
+        "white",
           "#800000", // Maroon
           "#008000", // Green
           "#808000", // Olive
           "#000080", // Navy
-              "black",
           "#808080", // Gray
           "#C0C0C0", // Silver
+        "black",
           "#FFC0CB", // Pink
           "#FFFAFA", // Snow
           "#F0FFF0", // Honeydew
           "#FFFFF0", // Ivory
-              "black",
           "#F5F5F5", // Light Gray
+        "white",
           "#FFF0F5", // Lavender Blush
           "#FFFAF0", // Floral White
           "#00FFFF", // Cyan
           "#00FF00", // Lime Green
-          "#FF0000", // Red,
-            "white"
-        ];
-        indexcolor = 0;
-        
-        function msgcolors(){
-
-       
-msg.style.color = livelyColors[indexcolor];
-                indexcolor = (indexcolor + 1) % livelyColors.length;
-        }
-        setInterval(msgcolors,749);
+          "#FF0000", // Red
+          "black"
+    ];
+    
+    indexcolor = 0;  
+    function msgcolors(){
+        msg.style.color = livelyColors[indexcolor];
+        indexcolor = (indexcolor + 1) % livelyColors.length;
+    }
+    setInterval(msgcolors,788);
        
     </script>
 </body>
