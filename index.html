@@ -13,13 +13,15 @@
     <meta content='#2f3136'  name='theme-color'/>
     
     <style>
-
+        
         html{
             word-wrap: break-word;
+              min-width:300px;
+            scroll-behavior: smooth;
         }
         
         body{
-            font-family: 'Open Sans';
+            font-family: "Imprint MT Shadowv", Georgia, Times New Roman, serif;
             background: url("https://blog.lootcrate.com/wp-content/uploads/2019/12/original.gif") no-repeat center center fixed; 
             background-size: cover;
         }
@@ -27,6 +29,7 @@
         #message {
             text-align:center;
             font-size: 4em;
+            animation: TextColorChange 6.5s infinite, movelol 3s;
         }
         
         #timer {
@@ -39,10 +42,15 @@
            margin: 20px auto;
            width: fit-content;
            cursor: progress;
+            animation: TextTime 6.9s infinite;
         }
-    
+        @keyframes TextTime {
+        0%   {font-size:4em}
+        50%  {font-size:3.5em}
+        100% {font-size:4em}
+        }
         #menu{
-            font-size: 18px;
+            font-size: 20px;
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 30px;
             padding: 10px;
@@ -50,10 +58,11 @@
             margin: 20px;
             cursor: pointer;
             color: white;
+            
         }
     
         #small_label{
-            font-size: 0.5em;
+            font-size: 40%;
         }
         
         a {
@@ -67,45 +76,83 @@
         }
     
         #menucontent{
-            font-size: 18px;
+            animation: borderColorChange 6.5s infinite, movelol 1s;
+            font-size: 20px;
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 30px;
             padding: 10px;
-            width: fit-content;
+            width: 49%;
             margin: 20px;
             color: white;
             z-index: 1000;
             position: absolute;
             top: 0;
-            display:none;
+            text-align:center;
+            max-width: 300px; 
+            min-width: 200px;
+            border-width: thick;
+            border-style: solid;
+            
         }
-        form input, form button,button,button a {
+        @keyframes TextColorChange {
+        0%   {color: rgb(0, 0, 0);}
+        25% {color: rgb(255, 0, 255);}
+        50%  {color: rgb(0, 255, 0);}
+        75% {color: rgb(0, 0, 255);}
+        100% {color: rgb(255, 255, 255);}
+        }
+        @keyframes borderColorChange {
+            0%   {border-color: rgb(0, 0, 0);}
+            25% {border-color: rgb(255, 0, 255);}
+            50%  {border-color: rgb(0, 255, 0);}
+            75% {border-color: rgb(0, 0, 255);}
+            100% {border-color: rgb(255, 255, 255);}
+        }
+        @keyframes movelol {
+              0% { transform: translate(1px, 1px) rotate(0deg); }
+              10% { transform: translate(-1px, -2px) rotate(-1deg); }
+              20% { transform: translate(-3px, 0px) rotate(1deg); }
+              30% { transform: translate(3px, 2px) rotate(0deg); }
+              40% { transform: translate(1px, -1px) rotate(1deg); }
+              50% { transform: translate(-1px, 2px) rotate(-1deg); }
+              60% { transform: translate(-3px, 1px) rotate(0deg); }
+              70% { transform: translate(3px, 1px) rotate(-1deg); }
+              80% { transform: translate(-1px, -1px) rotate(1deg); }
+              90% { transform: translate(1px, 2px) rotate(0deg); }
+              100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        form input, form button,button {
             margin-top: 10px;
             font-size: 19px;
             padding: 10px;
             border-radius: 8px;
             color: black;
+            width:fit-content;
+            max-width: 89%;
+            height:fit-content;
         }
+        
     </style>
 </head>
 <body id="body">
     <div id="menucontent">
-        <a onclick="menu('none')">X CLOSE</a>
+        <a onclick="display('CountdownForm','none');display('createcountdown','block');display('menucontent','none');" style="font-size:25px">X CLOSE MENU</a>
         <br>
         <button onclick="copyclip()"> Share this Countdown</button><br>  
         <button onclick="window.location.assign('/countdown')">Christmas Countdown</button>
         <br>
         <button onclick="window.location.assign('/countdown?newyear=true')">New Year Countdown</button> <br>
-        <br> 
+        
+         <a id="createcountdown" onclick="display('createcountdown','none')" href="#CountdownForm"><button  onclick="display('CountdownForm','block')">Create Countdown</button> </a>
         <br>
-        <form>
-            <a id="small_label">Date to countdown</a><br>
+        <form style="display:none;" id="CountdownForm">
+            <a style="font-size:17px">Date to countdown</a><br>
             <input type="date" id="date" name="date" min="2024-09-23" max="2043-12-31" value="2024-09-23" required/>
             <br>
-            <a id="small_label">Message</a><br>
-            <input name="message" placeholder="Happy BD Sample!" required>
+            <a style="font-size:17px">Message</a><br>
+            <input name="message" placeholder="Sample Greetings!" required>
             <br>
-            <a id="small_label">Valid URL of Background Image/GIF</a><br>
+            <a style="font-size:17px">Valid URL of Background Image/GIF</a><br>
             <input name="image1" type="url" placeholder="1" required><br>
             <input placeholder="2" type="url" name="image2"><br>
             <input placeholder="3" type="url" name="image3"><br>
@@ -114,19 +161,12 @@
             <br>
             <button style="font-size: 20px">Create Countdown Now!</button> 
         </form>
-        <br>
-        Made by Tabigs 
-        <br>
-        Submitted as Project for Engr. Dads
-        <br>
-        https://replit.com/@Bolantoy/frantest#countdown.html
-        <br>
-        https://github.com/frannytabigs/countdown
-        <br>
-        facebook.com/franny.bolantoy
+        
+        <span style="font-size:15.5px">
+        Made by Tabigs <br> Submitted as Project for Engr. Dads<br> Useful Links: <a href="https://replit.com/@Bolantoy/frantest#countdown.html">Replit</a>, <a href="https://github.com/frannytabigs/countdown">Github</a>, <a href="https://facebook.com/franny.bolantoy" id="bottom">FB</a></span>
     </div>
     
-    <div id="menu" onclick="menu('block')">&#9776 December 25, 2024</div> <br>
+    <div id="menu" onclick="display('menucontent','block')">&#9776 December 25, 2024</div> <br>
     <div id="message">Merry Christmas!</div>
     <div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
 
@@ -251,8 +291,8 @@
 
     setInterval(updateImage, 6500);
         
-    function menu(display){
-        document.getElementById("menucontent").style.display = display;
+    function display(id,dp){
+        document.getElementById(id).style.display = dp;
     }
         
     function formatDate(d) {
@@ -278,54 +318,6 @@
     var maxdate = formatDate(maxdate);
     document.getElementById("date").max = maxdate;
         
-    var msg = document.getElementById('message');
-
-    const livelyColors = [
-        "black",
-          "#FFB6C1", // Light Pink
-          "#FFD700", // Gold
-          "#90EE90", // Light Green
-          "#FF69B4", // Hot Pink
-          "#FF1493", // Deep Pink
-          "#FF8C00", // Dark Orange
-          "#7FFFD4", // Aquamarine
-          "#F08080", // Light Coral
-        "white",
-          "#FF00FF", // Magenta
-          "#00FFFF", // Cyan
-          "#00FF00", // Lime Green
-          "#FF0000", // Red
-          "#FFFF00", // Yellow
-          "#0000FF", // Blue
-        "white",
-          "#800000", // Maroon
-          "#008000", // Green
-          "#808000", // Olive
-          "#000080", // Navy
-          "#808080", // Gray
-          "#C0C0C0", // Silver
-        "black",
-          "#FFC0CB", // Pink
-          "#FFFAFA", // Snow
-          "#F0FFF0", // Honeydew
-          "#FFFFF0", // Ivory
-          "#F5F5F5", // Light Gray
-        "white",
-          "#FFF0F5", // Lavender Blush
-          "#FFFAF0", // Floral White
-          "#00FFFF", // Cyan
-          "#00FF00", // Lime Green
-          "#FF0000", // Red
-          "black"
-    ];
-    
-    indexcolor = 0;  
-    function msgcolors(){
-        msg.style.color = livelyColors[indexcolor];
-        indexcolor = (indexcolor + 1) % livelyColors.length;
-    }
-    setInterval(msgcolors,788);
-       
     </script>
 </body>
 </html>
