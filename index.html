@@ -195,7 +195,7 @@
     const ny = urlParams.get('newyear');
     const xmas_year = new Date().getFullYear();
         
-    document.title =  "Christmas Countdown";
+    document.title =  "Christmas "+ xmas_year + " Countdown";
     var countDownDate = new Date("December 25, " + xmas_year).getTime();
     var now = new Date().getTime();
     var xmasDone = countDownDate - now;
