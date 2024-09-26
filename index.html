@@ -201,6 +201,7 @@
     var xmasDone = countDownDate - now;
     if (xmasDone < 0) {
         var countDownDate = new Date("December 25, " + (xmas_year+1)).getTime();
+        document.title =  "Christmas "+ (xmas_year+1) + " Countdown";
     }
     if (ny){
         var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
