@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,30 +12,30 @@
     <meta property='og:site_name' content='Countdown'>
     <meta content='https://media.tenor.com/chNErfisaHIAAAAM/cant-decide-counting.gif' property='og:image' />
     <meta content='#2f3136'  name='theme-color'/>
-    
+
     <style>
-        
+
         html{
             word-wrap: break-word;
-              min-width:300px;
+              min-width:400px;
             scroll-behavior: smooth;
         }
-        
+
         body{
             font-family: "Imprint MT Shadowv", Georgia, Times New Roman, serif;
             background: url("https://blog.lootcrate.com/wp-content/uploads/2019/12/original.gif") no-repeat center center fixed; 
             background-size: cover;
         }
-    
+
         #message {
             text-align:center;
             font-size: 4em;
-            animation: TextColorChange 6.5s infinite, movelol 3s;
+            animation: TextColorChange 6.5s infinite, movelol 8.5s infinite;
         }
-        
+
         #timer {
            text-align: center;
-           font-size: 4em;
+           font-size: 4.2em;
            background-color: rgba(0, 0, 0, 0.3);
            border-radius: 30px;
            padding: 10px;
@@ -42,13 +43,15 @@
            margin: 20px auto;
            width: fit-content;
            cursor: progress;
-            animation: TextTime 6.9s infinite;
+           animation: TextTime 6.9s infinite;  
         }
+        
         @keyframes TextTime {
-        0%   {font-size:4em}
-        50%  {font-size:3.5em}
-        100% {font-size:4em}
+        0%   {font-size:  min(100px,4.2em);}
+        50%  {font-size:  min(88px,3.8em);}
+        100% {font-size:  min(100px,4.2em);}
         }
+        
         #menu{
             font-size: 20px;
             background-color: rgba(0, 0, 0, 0.3);
@@ -58,23 +61,19 @@
             margin: 20px;
             cursor: pointer;
             color: white;
-            
+
         }
-    
+
         #small_label{
             font-size: 40%;
         }
-        
+
         a {
             text-decoration: none;
             cursor: pointer;
             color:white;
         }
-    
-        a:hover {
-            text-decoration: underline;
-        }
-    
+
         #menucontent{
             animation: borderColorChange 6.5s infinite, movelol 1s;
             font-size: 20px;
@@ -92,7 +91,7 @@
             min-width: 200px;
             border-width: thick;
             border-style: solid;
-            
+           
         }
         @keyframes TextColorChange {
         0%   {color: rgb(0, 0, 0);}
@@ -130,8 +129,10 @@
             width:fit-content;
             max-width: 89%;
             height:fit-content;
+            color:black;
+            background-color:white;
         }
-        
+
     </style>
 </head>
 <body id="body">
@@ -142,7 +143,7 @@
         <button onclick="window.location.assign('/countdown')">Christmas Countdown</button>
         <br>
         <button onclick="window.location.assign('/countdown?newyear=true')">New Year Countdown</button> <br>
-        
+
          <a id="createcountdown" onclick="display('createcountdown','none')" href="#CountdownForm"><button  onclick="display('CountdownForm','block')">Create Countdown</button> </a>
         <br>
         <form style="display:none;" id="CountdownForm">
@@ -161,18 +162,18 @@
             <br>
             <button style="font-size: 20px">Create Countdown Now!</button> 
         </form>
-        
-        <span style="font-size:15.5px">
+
+        <a style="font-size:15.5px">
         Made by Tabigs <br> Submitted as Project for Engr. Dads<br> Useful Links: <a href="https://replit.com/@Bolantoy/frantest#countdown.html" target="_blank">Replit</a>, <a href="https://github.com/frannytabigs/countdown" target="_blank">Github</a>, <a target="_blank" href="https://facebook.com/franny.bolantoy">FB</a>
-        </span>
+        </a>
     </div>
-    
+
     <div id="menu" onclick="display('menucontent','block')">&#9776 December 25, 2024</div> <br>
     <div id="message">Merry Christmas!</div>
     <div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
 
     <script>
-        
+
     function copyclip() {
         const text = window.location.href;
         const input = document.createElement('input');
@@ -195,7 +196,7 @@
     const image5 = urlParams.get('image5');
     const ny = urlParams.get('newyear');
     const xmas_year = new Date().getFullYear();
-        
+
     document.title =  "Christmas "+ xmas_year + " Countdown";
     var countDownDate = new Date("December 25, " + xmas_year).getTime();
     var now = new Date().getTime();
@@ -207,7 +208,7 @@
     if (ny){
         var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
     }
-        
+
     if (message&&date&&image1){
         dateCheck = new Date(date);
         dateCheck = dateCheck.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -217,11 +218,11 @@
         document.title = dateCheck + " Countdown"
         document.body.style.backgroundImage = "url('"+image1+"')";
     }
-        
+
     var x = setInterval(function() {
         var currentnow = new Date().getTime();
         var distance = countDownDate - currentnow;
-        
+
         var _second = 1000;
         var _minute = _second * 60;
         var _hour = _minute * 60;
@@ -230,7 +231,7 @@
         var hours = Math.floor((distance % _day) / _hour);
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second);
-        
+
         document.getElementById("timer").innerHTML = days + "<a id='small_label'>d</a> " + hours + "<a id='small_label'>h</a> " + minutes + "<a id='small_label'>m</a> " + seconds + "<a id='small_label'>s</a> ";
 
           if (distance < 0) {
@@ -240,7 +241,7 @@
         }, 1000);
 
     var gif_xmas = ["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"];
-        
+
     var gif_newyear = ["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"];
 
     if(date == (xmas_year+1) + "-01-01") {
@@ -249,7 +250,7 @@
         document.title =  "New Year " + (xmas_year+1) + " Countdown";
     }
 
-        
+
     gifs = [];
     if(image1){
     gifs.push(image1);
@@ -269,20 +270,20 @@
     if(gifs.length != 0){
         gif_xmas = gifs;
     }
-        
+
     if(ny && !message){
         document.getElementById('message').innerHTML = "Happy New Year "+ (xmas_year+1)+"!";
-        
+
         if(gifs.length == 0){
             gif_xmas = gif_newyear;
             document.body.style.backgroundImage = "url('"+gif_newyear[0] +"')";
         }
-        
+
          document.title =  "New Year " + (xmas_year+1) + " Countdown";
          document.getElementById('menu').innerHTML = "&#9776 " + "January 1, " + (xmas_year+1);
     }
 
-        
+
     var index = 0;
 
     function updateImage() {
@@ -292,11 +293,11 @@
     }
 
     setInterval(updateImage, 6500);
-        
+
     function display(id,dp){
         document.getElementById(id).style.display = dp;
     }
-        
+
     function formatDate(d) {
         var d = new Date(d);
         month = '' + (d.getMonth() + 1),
@@ -308,17 +309,30 @@
 
         return [year, month, day].join('-');
     }
-        
+
     const today = new Date();
     var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
     var toms = formatDate(toms);
-        
+
     document.getElementById("date").value = toms;
     document.getElementById("date").min = toms;
-        
+
     var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
     var maxdate = formatDate(maxdate);
     document.getElementById("date").max = maxdate;
+        
+    document.addEventListener('mouseover', () => {
+          window.event.target.style.color = "#FF69B4"; 
+     });
+    document.addEventListener('mouseout', () => {
+          window.event.target.style.color = ""; 
+    });
+    document.addEventListener('touchstart', () => {
+              window.event.target.style.color = "#FF69B4"; 
+         });
+    document.addEventListener('touchend', () => {
+              window.event.target.style.color = ""; 
+        });
         
     </script>
 </body>
