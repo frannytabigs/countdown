@@ -7,7 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <meta name="viewport" content="width=device-width">
     <meta content='Create a Countdown!' property='og:title' />
-    <meta content='Create a Countdown or Countdown with us at Christmas and New Year!' property='og:description'  />
+    <meta content='Create a Countdown or Countdown with us at Christmas, New Year, and Valentines!' property='og:description'  />
     <meta content='/countdown' property='og:url' />
     <meta property='og:site_name' content='Countdown'>
     <meta content='https://media.tenor.com/chNErfisaHIAAAAM/cant-decide-counting.gif' property='og:image' />
@@ -27,7 +27,7 @@
             background-size: cover;
         }
 
-        #message {
+        #message,#invalimg {
             text-align:center;
             font-size: 4em;
             animation: TextColorChange 6.5s infinite, movelol 8.5s infinite;
@@ -137,28 +137,30 @@
 </head>
 <body id="body">
     <div id="menucontent">
-        <a onclick="display('CountdownForm','none');display('createcountdown','block');display('menucontent','none');" style="font-size:25px">X CLOSE MENU</a>
+        <a onclick="display('CountdownForm','none');display('createcountdown','inline');display('menucontent','none');" style="font-size:25px">X CLOSE MENU</a>
         <br>
         <button onclick="copyclip()" id="copylink"> Share this Countdown</button><br>  
         <button onclick="window.location.assign('/countdown')">Christmas Countdown</button>
         <br>
-        <button onclick="window.location.assign('/countdown?newyear=true')">New Year Countdown</button> <br>
-
+        <button onclick="window.location.assign('/countdown?event=HAPPY NEW YEAR')">New Year Countdown</button> <br>
+        <button onclick="window.location.assign('/countdown?event=HAPPY VALENTINES')">Valentines Countdown</button> <br>
+        
          <a id="createcountdown" onclick="display('createcountdown','none')" href="#CountdownForm"><button  onclick="display('CountdownForm','block')">Create Countdown</button> </a>
         <br>
-        <form style="display:none;" id="CountdownForm">
+        <form style="display: none" id="CountdownForm">
             <a style="font-size:17px">Date to countdown</a><br>
             <input type="date" id="date" name="date" min="2024-09-23" max="2043-12-31" value="2024-09-23" required/>
-            <br>
+            <br>   <br>
             <a style="font-size:17px">Message</a><br>
             <input name="message" placeholder="Sample Greetings!" required>
-            <br>
+            <br>   <br>
+             
+            
             <a style="font-size:17px">Valid URL of Background Image/GIF</a><br>
-            <input name="image1" type="url" placeholder="1" required><br>
-            <input placeholder="2" type="url" name="image2"><br>
-            <input placeholder="3" type="url" name="image3"><br>
-            <input placeholder="4" type="url" name="image4"><br>
-            <input placeholder="5" type="url" name="image5">
+            
+            <input style="width:48%" id="image1" name="image1" type="url" placeholder="1" required>
+            <button id="imgbuttons" style="font-size:13.5px" onclick="addimage()">➕</button> 
+            
             <br>
             <button style="font-size: 20px">Create Countdown Now!</button> 
         </form>
@@ -172,49 +174,156 @@
     <div id="message">Merry Christmas!</div>
     <div id="timer"> 00<a id="small_label">d</a> 00<a id="small_label">h</a> 00<a id="small_label">m</a> 00<a id="small_label">s</a></div>
 
+    <p id='invalimg' style='display:none'>INVALID BACKGROUND IMAGE/GIF! OR NO INTERNET?? REMAKE ANOTHER COUNTDOWN!</p>
+
     <script>
+        
+        
+        images = 1;
+        
+        function addimage(){
+        
+            document.getElementById(`image${images}`).style.width = "67%";
+            var rem = document.getElementById(`img${images}minus`);
+            if (rem) rem.remove();
+            images++;
+            var butele = document.getElementById("imgbuttons");
+            var ele = `<br><input style="width:48%" id="image${images}" placeholder="${images}" type="url" name="image${images}" required>`;
+            var defbut = '<button id="imgbuttons"  style="font-size:13.5px" onclick="addimage()">➕</button>';
+            var minbut = `<button id="img${images}minus" style="font-size:13.5px" onclick="removeimage()">➖</button>`;
+            butele.innerHTML = "";
+            butele.outerHTML = `<a id="removeimage${images}">` + ele + minbut  + defbut + "</a>";
+            
+        }
+        
 
-    function copyclip() {
-        setTimeout(function(){document.getElementById("copylink").innerHTML = "Share this Countdown";},6000);
-        const urltext = window.location.href;
-        document.getElementById("copylink").innerHTML = "<a href='" + urltext + "' id='copyurl'> URL Copied! if not you can manually copy this  URL </a>";
+        function removeimage(){
+            document.getElementById(`image${images}`).style.width = "48%";
+            var rem = document.getElementById(`removeimage${images}`);
+            if (rem) {rem.remove(); images--;}
+            
+            var rem = document.getElementById(`removeimage${images}`);
+            var butele = document.getElementById("imgbuttons");
+            var ele = `<br><input style="width:48%" id="image${images}" placeholder="${images}" type="url" name="image${images}" required>`;
+            var defbut = '<button id="imgbuttons"  style="font-size:13.5px" onclick="addimage()">➕</button>';
+            var minbut = `<button id="img${images}minus" style="font-size:13.5px" onclick="removeimage()">➖</button>`;
+            if (rem) {rem.innerHTML = ""; rem.outerHTML = `<a id="removeimage${images}">` + ele + minbut  + defbut + "</a>";}
+
+            if (images == 1) {
+                var butele = document.getElementById("image1");
+                butele.style.width = "67%";
+                var defbut = '<button id="imgbuttons" style="font-size:13.5px" onclick="addimage()">➕</button>';
+                butele.outerHTML =  '<input style="width:48%" id="image1" name="image1" type="url" placeholder="1" required>' + defbut;
+            }
+        }
+            
+             
+        function copyclip() {
+            
+            setTimeout(  
+                function(){
+                changeInnerHTML("copylink","Share this Countdown");
+                }    ,6000 );
+            
+            const urltext = window.location.href;
+            changeInnerHTML("copylink","<a href='" + urltext + "' id='copyurl'> URL Copied! if not you can manually copy this  URL </a>");
         navigator.clipboard.writeText(urltext);
-    }
+        }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    var date = urlParams.get('date');
-    const message = urlParams.get('message');
-    const image1 = urlParams.get('image1');
-    const image2 = urlParams.get('image2');
-    const image3 = urlParams.get('image3');
-    const image4 = urlParams.get('image4');
-    const image5 = urlParams.get('image5');
-    const ny = urlParams.get('newyear');
-    const xmas_year = new Date().getFullYear();
+        function changeInnerHTML(id,value){
+            document.getElementById(id).innerHTML = value;
+        }
 
-    document.title =  "Christmas "+ xmas_year + " Countdown";
-    var countDownDate = new Date("December 25, " + xmas_year).getTime();
-    var now = new Date().getTime();
-    var xmasDone = countDownDate - now;
-    if (xmasDone < 0) {
-        var countDownDate = new Date("December 25, " + (xmas_year+1)).getTime();
-        document.title =  "Christmas "+ (xmas_year+1) + " Countdown";
-    }
-    if (ny){
-        var countDownDate = new Date("January 01, " + (xmas_year+1)).getTime();
-    }
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        var gifsset = {  "MERRY CHRISTMAS":["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"], 
+            
+                       "HAPPY NEW YEAR":["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"],
+            
+                      "HAPPY VALENTINES":["https://i.pinimg.com/originals/11/0d/bd/110dbddfd3d662479c214cacb754995d.gif","https://i.giphy.com/CaAQ3NZZWKb28.gif","https://64.media.tumblr.com/5c929072f9194ee551469af48131b800/tumblr_p5y6ua6fep1vd1993o1_500.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4ZR3mq-MFuCmRWgXa33mrmUYc_olqastMEA&s","https://i.pinimg.com/originals/22/f2/d4/22f2d4141cecd18e0120cb8944cfaaf6.gif"]
+                     
+                     };
+        
+        var listimage = [];
+        
+        for (const [key, value] of urlParams.entries()) {
+          if (key.startsWith("image")) listimage.push(value);
+        };
+        
+       
+        var argsdate = urlParams.get('date');
+        const message = urlParams.get('message');
+        
+        var event_name = urlParams.get('event');
+        var currentDATE = new Date();
+        var now = currentDATE.getTime();
+        var year = currentDATE.getFullYear();
+        
+        var countDownDate;
 
-    if (message&&date&&image1){
-        dateCheck = new Date(date);
-        dateCheck = dateCheck.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        var countDownDate = new Date(dateCheck).getTime();
-        document.getElementById('message').innerHTML = message;
-        document.getElementById('menu').innerHTML = "&#9776 " + dateCheck;
-        document.title = dateCheck + " Countdown"
-        document.body.style.backgroundImage = "url('"+image1+"')";
-    }
+        var events = {
+        "HAPPY NEW YEAR":"January 01, " ,
+        "HAPPY VALENTINES":"February 14, " ,
+        "MERRY CHRISTMAS": "December 25, " 
+        };
+        var eventtitlle = {
+            "HAPPY NEW YEAR":"New Year" ,
+            "HAPPY VALENTINES":"Valentines" ,
+            "MERRY CHRISTMAS": "Christmas" 
+        };
 
-    var x = setInterval(function() {
+        function checkYearEvent(date){
+            var date = new Date(date);
+            var Done = (date.getTime() - now) < 0;
+            if (Done) {
+                return year+1;
+            }
+            return year
+        }
+        
+        for (var ev in events) {
+            dt = events[ev] + year;
+            y = checkYearEvent(dt);
+            events[ev] = events[ev] + y;
+        };
+        
+        function display(id,dp){
+            document.getElementById(id).style.display = dp;
+         
+        }
+
+      
+        var datedisplay;
+       
+        if (!event_name && !argsdate) event_name = "MERRY CHRISTMAS";
+        
+        if (argsdate && listimage.length && message){
+            countDownDate = new Date(argsdate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            datedisplay = countDownDate;
+            document.title = countDownDate + " Countdown";
+            countDownDate = new Date(countDownDate).getTime();
+             document.getElementById('message').innerHTML = message;
+        }
+
+        if (event_name){
+            
+            if (!events[event_name]) event_name = "MERRY CHRISTMAS";
+            document.title = eventtitlle[event_name] + " " + year + " Countdown";
+            countDownDate = events[event_name];
+            datedisplay = events[event_name];
+            countDownDate = new Date(countDownDate).getTime();
+            listimage = gifsset[event_name];
+            document.getElementById('message').innerHTML = event_name + "!";
+            
+        }
+
+        
+        
+     
+        
+        document.getElementById('menu').innerHTML = "&#9776 " + datedisplay;
+        
+        var x = setInterval(function() {
         var currentnow = new Date().getTime();
         var distance = countDownDate - currentnow;
 
@@ -235,102 +344,77 @@
             }
         }, 1000);
 
-    var gif_xmas = ["https://i.pinimg.com/originals/8b/68/97/8b68972e89a9348fa6692801b3efa297.gif","https://gifdb.com/images/high/anime-himouto-umaru-chan-umaru-doma-merry-christmas-9k80lnlnxtqzppcl.gif","https://i.pinimg.com/originals/5a/1d/63/5a1d635bc2e47ae93340a5bf4134425c.gif","https://1.bp.blogspot.com/-ngjmUJ4GvZg/WL3iK1Ych0I/AAAAAAAAwnk/v7TdGI_UMPgfat2Q8T9kZK7Hm5nLBy12gCPcB/s1600/Omake%2BGif%2BAnime%2B-%2BGabriel%2BDropOut%2B-%2BEpisode%2B9%2B-%2BRaphiel%2BVignette%2BMerry%2BChristmas.gif"];
 
-    var gif_newyear = ["https://media.tenor.com/Gmb_qGIIC3IAAAAd/happy-new-year-new-year.gif","https://media.tenor.com/kULJlStwrCcAAAAM/happy-new-year2021-anime.gif","https://i.pinimg.com/originals/f5/de/b0/f5deb027a419793b01862c130b1b1c53.gif","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6w6ZKe5DxFqOk5CTb0X758lkl23KTJFBJA&s","https://64.media.tumblr.com/20945f574b0dab5663a85c27b1de8620/tumblr_p1t2chSCHW1wexa8uo1_400.gif"];
-
-    if(date == (xmas_year+1) + "-01-01") {
-        gif_xmas = gif_newyear;
-        document.body.style.backgroundImage = "url('"+gif_xmas[0] +"')";
-        document.title =  "New Year " + (xmas_year+1) + " Countdown";
-    }
-
-
-    gifs = [];
-    if(image1){
-    gifs.push(image1);
-    }
-    if(image2){
-        gifs.push(image2);
-    }
-    if(image3){
-        gifs.push(image3);
-    }
-    if(image4){
-        gifs.push(image4);
-    }
-    if(image5){
-        gifs.push(image5);
-    }
-    if(gifs.length != 0){
-        gif_xmas = gifs;
-    }
-
-    if(ny && !message){
-        document.getElementById('message').innerHTML = "Happy New Year "+ (xmas_year+1)+"!";
-
-        if(gifs.length == 0){
-            gif_xmas = gif_newyear;
-            document.body.style.backgroundImage = "url('"+gif_newyear[0] +"')";
+        function isImgUrl(url) {
+          const img = new Image();
+          img.src = url;
+          return new Promise((resolve) => {
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+          });
         }
 
-         document.title =  "New Year " + (xmas_year+1) + " Countdown";
-         document.getElementById('menu').innerHTML = "&#9776 " + "January 1, " + (xmas_year+1);
-    }
-
-
-    var index = 0;
-
-    function updateImage() {
-
-        document.body.style.backgroundImage = "url('"+gif_xmas[index] +"')";
-        index = (index + 1) % gif_xmas.length;
-    }
-
-    setInterval(updateImage, 6500);
-
-    function display(id,dp){
-        document.getElementById(id).style.display = dp;
-    }
-
-    function formatDate(d) {
-        var d = new Date(d);
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-        if (month.length < 2) {month = '0' + month;}
-        if (day.length < 2) {day = '0' + day;}
-
-        return [year, month, day].join('-');
-    }
-
-    const today = new Date();
-    var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
-    var toms = formatDate(toms);
-
-    document.getElementById("date").value = toms;
-    document.getElementById("date").min = toms;
-
-    var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
-    var maxdate = formatDate(maxdate);
-    document.getElementById("date").max = maxdate;
         
-    document.addEventListener('mouseover', () => {
-        var randomColor = Math.floor(Math.random()*16777215).toString(16);
-        window.event.target.style.color = "#" + randomColor; 
-     });
-    document.addEventListener('mouseout', () => {
-          window.event.target.style.color = ""; 
-    });
-    document.addEventListener('touchstart', () => {
-        var randomColor = Math.floor(Math.random()*16777215).toString(16);
-        window.event.target.style.color = "#" + randomColor; 
+
+        var index = 0;
+
+        function updateImage() {
+            
+            document.getElementById("invalimg").style.display = "none";
+            document.body.style.backgroundImage = "url('"+listimage[index] +"')";
+            index = (index + 1) % listimage.length;
+            isImgUrl(listimage[index]).then((isValid) => {
+              if (!isValid) {document.body.style.backgroundImage = 'url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW85NXk3ejZzOGR4NzR2N3JucWM3YXJodnN0bjF5YW9xc3pqZDFodSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cEppZtd4uXVCNN1jRC/giphy.webp")'; 
+                document.getElementById("invalimg").style.display = "inline";}
+            }); 
+            
+           
+        }
+        updateImage();
+        setInterval(updateImage, 6500);
+        
+        
+        
+
+        function formatDate(d) {
+            var d = new Date(d);
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+            if (month.length < 2) {month = '0' + month;}
+            if (day.length < 2) {day = '0' + day;}
+
+            return [year, month, day].join('-');
+        }
+
+        const today = new Date();
+        var toms = today.getFullYear() + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+        var toms = formatDate(toms);
+
+        document.getElementById("date").value = toms;
+        document.getElementById("date").min = toms;
+
+        var maxdate = (today.getFullYear()+3) + "-" +  (today.getMonth()+1) + "-" + (today.getDate()+1);
+        var maxdate = formatDate(maxdate);
+        document.getElementById("date").max = maxdate;
+
+        document.addEventListener('mouseover', () => {
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            window.event.target.style.color = "#" + randomColor; 
          });
-    document.addEventListener('touchend', () => {
+        document.addEventListener('mouseout', () => {
               window.event.target.style.color = ""; 
         });
-        
+        document.addEventListener('touchstart', () => {
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            window.event.target.style.color = "#" + randomColor; 
+             });
+        document.addEventListener('touchend', () => {
+                  window.event.target.style.color = ""; 
+            });
+    
     </script>
+    
 </body>
 </html>
