@@ -308,14 +308,16 @@
         if (event_name){
             
             if (!events[event_name]) event_name = "MERRY CHRISTMAS";
-            document.title = eventtitlle[event_name] + " " + year + " Countdown";
             countDownDate = events[event_name];
+            countDownDate = new Date(countDownDate);
+            document.title = eventtitlle[event_name] + " " + countDownDate.getFullYear() + " Countdown";
             datedisplay = events[event_name];
-            countDownDate = new Date(countDownDate).getTime();
+            countDownDate = countDownDate.getTime();
             listimage = gifsset[event_name];
             document.getElementById('message').innerHTML = event_name + "!";
             
         }
+
 
         
         
